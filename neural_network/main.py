@@ -6,11 +6,11 @@ from time import perf_counter as tm
 
 U0 = 0.5
 
-hset = np.arange(23)*0.5
+hset = np.arange(23) * 0.5
 fig, ax = plt.subplots()
 line, = plt.plot(hset, t_net.predict(U0), lw=2)
 
-ax.set_ylim(-100,25)
+ax.set_ylim(-100, 25)
 ax.set_ylabel('Temperature (Celsius)')
 ax.set_xlabel('Altitude (km)')
 
@@ -21,15 +21,17 @@ slider = Slider(
     label='Relative Humidity',
     valmin=0,
     valmax=1,
-    valinit=U0 )
+    valinit=U0)
+
 
 def update(val):
     global count, duration
     start = tm()
     line.set_ydata(t_net.predict(val))
     fig.canvas.draw_idle()
-    duration += tm()-start
+    duration += tm() - start
     count += 1
+
 
 count, duration = 0, 0
 slider.on_changed(update)

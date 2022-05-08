@@ -16,17 +16,17 @@ PARAMETERS:
 '''
 
 dh = 0.01
-dN = 0.5 
-h0 = 0 
+dN = 0.5
+h0 = 0
 h1 = 11
-P0 = 1013.25 
+P0 = 1013.25
 T0 = 15
 U0 = 0.5
 
-N = int((h1-h0)/dN)+1
-H = np.arange(N)*dN
+N = int((h1 - h0) / dN) + 1
+H = np.arange(N) * dN
 
-fig, axs = plt.subplots(ncols=3,nrows=1, constrained_layout=True,figsize=(12,6))
+fig, axs = plt.subplots(ncols=3, nrows=1, constrained_layout=True, figsize=(12, 6))
 init_data = cpp_euler_scheme(dh, h0, h1, P0, T0, U0, dN)
 line1, = axs[0].plot(H, init_data[0], lw=2)
 line2, = axs[1].plot(H, init_data[1], lw=2)
@@ -39,12 +39,12 @@ plt.subplots_adjust(left=0.1,
                     wspace=0.4, 
                     hspace=0.4)
 
-axs[0].set_ylim(0,1100)
+axs[0].set_ylim(0, 1100)
 axs[0].set_ylabel('Pressure (mbar)')
-axs[1].set_ylim(-100,25)
+axs[1].set_ylim(-100, 25)
 axs[1].set_ylabel('Temperature (Celsius)')
 axs[2].set_xlabel('Altitude (km)')
-axs[2].set_ylim(0,10)
+axs[2].set_ylim(0, 10)
 axs[2].set_ylabel('Lapse Rate (Kelvin/km)')
 
 axu = plt.axes([0.25, 0.1, 0.65, 0.03])
@@ -53,7 +53,8 @@ slider = Slider(
     label='Relative Humidity',
     valmin=0,
     valmax=1,
-    valinit=U0 )
+    valinit=U0)
+
 
 def update(val: float) -> None:
     global count, duration
@@ -63,8 +64,9 @@ def update(val: float) -> None:
     line2.set_ydata(data[1])
     line3.set_ydata(data[2])
     fig.canvas.draw_idle()
-    duration += tm()-start
+    duration += tm() - start
     count += 1
+
 
 count, duration = 0, 0
 slider.on_changed(update)
