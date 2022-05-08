@@ -1,5 +1,6 @@
 import math
 import numpy as np
+# equivalent (but slower) implementation of what is contianed in euler_scheme.dll
 
 def _calc_Es(T: float) -> float:
     return 6.1121 * math.exp((18.678 - T / 234.5) * (T / (T + 257.14)))
@@ -11,7 +12,7 @@ def _calc_L(P: float, Es: float, U: float, TK: float) -> float:
 def _calc_dP(P: float, U: float, Es: float, TK: float) -> float:
     return -34.171 * (P - 0.37776 * U * Es) / TK
 
-def py_single_sim(dh: float, h0: float, h1: float, P0: float, T0: float ,U: float, dN: float) -> list[np.ndarray]:
+def euler_scheme(dh: float, h0: float, h1: float, P0: float, T0: float ,U: float, dN: float) -> np.ndarray:
     n = int((h1-h0)/dh)+1
     N = int(dN/dh)
     P = np.zeros(n)
