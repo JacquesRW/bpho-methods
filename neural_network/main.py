@@ -4,16 +4,16 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
 from time import perf_counter as tm
 
-dN = 0.5
-u0 = 0.5
-N = int(11/dN)+1
+U0 = 0.5
 
-hset = np.arange(N)*dN
+hset = np.arange(23)*0.5
 fig, ax = plt.subplots()
-line, = plt.plot(hset, t_net.predict(u0), lw=2)
+line, = plt.plot(hset, t_net.predict(U0), lw=2)
+
 ax.set_ylim(-100,25)
 ax.set_ylabel('Temperature (Celsius)')
 ax.set_xlabel('Altitude (km)')
+
 plt.subplots_adjust(left=0.25, bottom=0.25)
 axu = plt.axes([0.25, 0.1, 0.65, 0.03])
 slider = Slider(
@@ -21,7 +21,7 @@ slider = Slider(
     label='Relative Humidity',
     valmin=0,
     valmax=1,
-    valinit=u0 )
+    valinit=U0 )
 
 def update(val):
     global count, duration

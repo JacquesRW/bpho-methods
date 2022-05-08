@@ -32,8 +32,8 @@ line1, = axs[0].plot(H, init_data[0], lw=2)
 line2, = axs[1].plot(H, init_data[1], lw=2)
 line3, = axs[2].plot(H, init_data[2], lw=2)
 
-plt.subplots_adjust(left=0.4,
-                    bottom=0.1, 
+plt.subplots_adjust(left=0.1,
+                    bottom=0.25, 
                     right=0.95, 
                     top=0.9, 
                     wspace=0.4, 
@@ -47,7 +47,6 @@ axs[2].set_xlabel('Altitude (km)')
 axs[2].set_ylim(0,10)
 axs[2].set_ylabel('Lapse Rate (Kelvin/km)')
 
-plt.subplots_adjust(left=0.1, bottom=0.25)
 axu = plt.axes([0.25, 0.1, 0.65, 0.03])
 slider = Slider(
     ax=axu,
