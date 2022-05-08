@@ -9,17 +9,12 @@ PARAMETERS:
 - dh : the step size used for altitude
 - h0 : the initial altitude, recommended to leave at 0
 - h1 : the height when the tropsphere ends
-- h2 : the height when the tropspause ends
-- h3 : the height when the stratosphere ends
 - P0 : the initial pressure at h0
 - T0 : the initial temperature at h0
-- L2 : the constant lapse rate in the stratosphere
 - dN : the step size for output to csv
 -  U :  the humidity value between 0 and 1 inclusive -> single simulations
-- Uset : a list of humidity values between 0 and 1 inclusive -> CSV outputs
 '''
 
-# params
 dh = 0.01
 dN = 0.5 
 h0 = 0 

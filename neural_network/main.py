@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
 from time import perf_counter as tm
 
-# params
 dN = 0.5
 u0 = 0.5
 N = int(11/dN)+1

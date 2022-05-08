@@ -12,17 +12,14 @@ def _calc_dP(P: float, U: float, Es: float, TK: float) -> float:
     return -34.171 * (P - 0.37776 * U * Es) / TK
 
 def py_single_sim(dh: float, h0: float, h1: float, P0: float, T0: float ,U: float, dN: float) -> list[np.ndarray]:
-    # Initialising Stuff
     n = int((h1-h0)/dh)+1
     N = int(dN/dh)
     P = np.zeros(n)
     T = np.zeros(n)
     L = np.zeros(n)
-    ## Initial Conditions ##
     P[0] = P0
     T[0] = T0
     L[0] = _calc_L(P0,_calc_Es(T0),U, T0 + 273.15)
-    # Future Steps
     for i in range(1,n):
         t = T[i - 1] - L[i - 1] * dh
         TK = t + 273.15
