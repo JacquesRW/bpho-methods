@@ -1,11 +1,7 @@
 import ctypes
 import numpy as np
 
-try:
-    mylib = ctypes.windll.LoadLibrary('euler/resources/dll/atmosCalc.dll')
-except:
-    mylib = ctypes.windll.LoadLibrary('dll/atmosCalc.dll')
-
+mylib = ctypes.windll.LoadLibrary('euler/resources/dll/atmosCalc.dll')
 mylib.isWorking()
 
 def cpp_single_sim(dh: float, h0: float, h1: float, P0: float, T0: float , U: float, dN: float) -> np.ndarray:
