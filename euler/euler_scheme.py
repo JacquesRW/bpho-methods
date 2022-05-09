@@ -2,13 +2,15 @@ import ctypes
 import numpy as np
 
 try:  # just running the file
+    print("Trying default .dll loading.")
     mylib = ctypes.windll.LoadLibrary('lib/euler_scheme.dll')
-    print("Default dll loading used.")
+    print("Default .dll loading used.")
 except FileNotFoundError:  # from workspace root (VSCode Debug)
+    print("Trying alternate .dll loading.")
     mylib = ctypes.windll.LoadLibrary('euler/lib/euler_scheme.dll')
     print("Alternate dll loading used.")
 except AttributeError:  # for use from linux cl
-    print("Linux loading used.")
+    print("Trying .so loading.")
     try:
         mylib = ctypes.cdll.LoadLibrary('euler/lib/euler_scheme.so')
     except FileNotFoundError:
