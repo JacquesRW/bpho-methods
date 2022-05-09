@@ -33,16 +33,6 @@ h1 = 11
 P0 = 1013.25
 T0 = 15
 U0 = 0.5
-
-
-def test_method(tests: int) -> None:  # just to make sure results are accurate
-    step = 1 / (tests - 1)
-    for i in range(tests):
-        U = i * step
-        test = method(dh, h0, h1, P0, T0, U, dN)
-        print(U, test[0][-1], test[1][-1], test[2][-1])
-
-
 N = int((h1 - h0) / dN) + 1
 H = np.arange(N) * dN
 

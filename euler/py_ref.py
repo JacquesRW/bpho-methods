@@ -1,6 +1,5 @@
 import math
 import numpy as np
-# equivalent (but slower) implementation of euler_scheme.dll
 
 
 def _calc_Es(T: float) -> float:
