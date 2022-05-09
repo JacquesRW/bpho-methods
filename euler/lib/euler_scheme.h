@@ -1,8 +1,10 @@
 #pragma once
 
 #if defined(_MSC_VER)
+    #define EXPORT __declspec(dllexport)
     #define IMPORT __declspec(dllimport)
 #elif defined(__GNUC__)
+    #define EXPORT
     #define IMPORT
 #endif
 

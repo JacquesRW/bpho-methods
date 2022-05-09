@@ -8,7 +8,7 @@ try:  # just running the file
 except FileNotFoundError:  # from workspace root (VSCode Debug)
     print("Trying alternate .dll loading.")
     mylib = ctypes.windll.LoadLibrary('euler/lib/euler_scheme.dll')
-    print("Alternate dll loading used.")
+    print("Alternate .dll loading used.")
 except AttributeError:  # for use from linux cl
     print("Trying .so loading.")
     try:
