@@ -12,7 +12,7 @@ PARAMETERS:
 - P0 : the initial pressure at h0
 - T0 : the initial temperature at h0
 - dN : the step size for output to csv
--  U :  the humidity value between 0 and 1 inclusive -> single simulations
+- U0 :  the initial relative humity value
 '''
 
 dh = 0.1
@@ -68,7 +68,6 @@ def update(val: float) -> None:
     count += 1
 
 
-test_rk4(dh, h0, h1, P0, T0, dN, 5)
 count, duration = 0, 0
 slider.on_changed(update)
 plt.show()

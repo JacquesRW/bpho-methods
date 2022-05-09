@@ -12,7 +12,7 @@ PARAMETERS:
 - P0 : the initial pressure at h0
 - T0 : the initial temperature at h0
 - dN : the step size for output to csv
--  U :  the humidity value between 0 and 1 inclusive -> single simulations
+- U0 :  the initial relative humity value
 '''
 
 dh = 0.01
