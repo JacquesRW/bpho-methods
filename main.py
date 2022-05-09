@@ -92,4 +92,4 @@ def update(val: float) -> None:
 count, duration = 0, 0
 slider.on_changed(update)
 plt.show()
-print(f"Average update took {duration/count:.6f}, from {count} updates.")
+print(f"Average update took {(1000 * duration / count):.4f} ms, from {count} updates.")
