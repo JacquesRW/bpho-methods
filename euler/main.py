@@ -59,7 +59,7 @@ slider = Slider(
 def update(val: float) -> None:
     global count, duration
     start = tm()
-    data = cpp_euler_scheme(dh, h0, h1, P0, T0, val, dN)
+    data = py_euler_scheme(dh, h0, h1, P0, T0, val, dN)
     line1.set_ydata(data[0])
     line2.set_ydata(data[1])
     line3.set_ydata(data[2])
