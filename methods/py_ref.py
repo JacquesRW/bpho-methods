@@ -34,6 +34,7 @@ def euler_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float
     data = np.asarray([P[:n:N], T[:n:N], L[:n:N]])
     return data
 
+
 def rk4_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, dN: float) -> np.ndarray:
     n = int((h1 - h0) / dh) + 1
     N = int(dN / dh)
