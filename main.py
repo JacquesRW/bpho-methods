@@ -1,5 +1,4 @@
-from euler import *
-from rk4 import *
+from methods import *
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
