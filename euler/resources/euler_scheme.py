@@ -1,7 +1,13 @@
 import ctypes
 import numpy as np
 
-mylib = ctypes.windll.LoadLibrary('euler/resources/dll/euler_scheme.dll')
+try:  # just running the file
+    mylib = ctypes.windll.LoadLibrary('/resources/dll/euler_scheme.dll')
+    print("Default dll loading used.")
+except FileNotFoundError:  # from workspace root (VSCode Debug)
+    mylib = ctypes.windll.LoadLibrary('euler/resources/dll/euler_scheme.dll')
+    print("Alternate dll loading used.")
+
 mylib.euler_scheme.restype = ctypes.POINTER(ctypes.POINTER(ctypes.c_double))
 mylib.euler_scheme.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_double, ctypes.c_double]
 
