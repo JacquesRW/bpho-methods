@@ -7,5 +7,4 @@ A collection of methods for the BPhO 2022 Computational Challenge.
 - rk4 method: extremely pog improvement, needs to be implemented in c++ and probably renders the other techniques moot
 
 ### Info:
-- each method contains a main.py that can be run to execute the code, and will create a dynamic matplotlib figure, with a slider for U values
 - each of euler and rk4 have a 'py_ref.py' which contains roughly equivalent python code to the c++ code used in their respective DLLs

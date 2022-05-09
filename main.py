@@ -1,21 +1,32 @@
-from resources import *
+from euler import *
+from rk4 import *
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
 from time import perf_counter as tm
 
 '''
+METHODS:
+- cpp_euler_scheme
+- py_euler_scheme
+- py_rk4_scheme
+
+set h=0.01 for euler and 0.1 for rk4
+'''
+
+method = cpp_euler_scheme
+dh = 0.01
+
+'''
 PARAMETERS:
-- dh : the step size used for altitude
-- h0 : the initial altitude, recommended to leave at 0
+- dN : the step size for display output
+- h0 : the initial altitude
 - h1 : the height when the tropsphere ends
 - P0 : the initial pressure at h0
 - T0 : the initial temperature at h0
-- dN : the step size for output to csv
-- U0 :  the initial relative humity value
+- U0 :  the initial relative humidity value
 '''
 
-dh = 0.01
 dN = 0.5
 h0 = 0
 h1 = 11
@@ -23,11 +34,20 @@ P0 = 1013.25
 T0 = 15
 U0 = 0.5
 
+
+def test_method(tests: int) -> None:  # just to make sure results are accurate
+    step = 1 / (tests - 1)
+    for i in range(tests):
+        U = i * step
+        test = method(dh, h0, h1, P0, T0, U, dN)
+        print(U, test[0][-1], test[1][-1], test[2][-1])
+
+
 N = int((h1 - h0) / dN) + 1
 H = np.arange(N) * dN
 
 fig, axs = plt.subplots(ncols=3, nrows=1, constrained_layout=True, figsize=(12, 6))
-init_data = cpp_euler_scheme(dh, h0, h1, P0, T0, U0, dN)
+init_data = method(dh, h0, h1, P0, T0, U0, dN)
 line1, = axs[0].plot(H, init_data[0], lw=2)
 line2, = axs[1].plot(H, init_data[1], lw=2)
 line3, = axs[2].plot(H, init_data[2], lw=2)
@@ -53,13 +73,14 @@ slider = Slider(
     label='Relative Humidity',
     valmin=0,
     valmax=1,
+    valstep=0.01,
     valinit=U0)
 
 
 def update(val: float) -> None:
     global count, duration
     start = tm()
-    data = py_euler_scheme(dh, h0, h1, P0, T0, val, dN)
+    data = method(dh, h0, h1, P0, T0, val, dN)
     line1.set_ydata(data[0])
     line2.set_ydata(data[1])
     line3.set_ydata(data[2])
@@ -71,4 +92,4 @@ def update(val: float) -> None:
 count, duration = 0, 0
 slider.on_changed(update)
 plt.show()
-print(f"Average update took {duration/count:.5f}, from {count} updates.")
+print(f"Average update took {duration/count:.6f}, from {count} updates.")

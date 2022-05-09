@@ -61,11 +61,3 @@ def rk4_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, 
 
     data = np.asarray([P[:n:N], T[:n:N], L[:n:N]])
     return data
-
-
-def test_rk4(dh: float, h0: float, h1: float, P0: float, T0: float, dN: float, tests: int) -> None:
-    step = 1 / (tests - 1)
-    for i in range(tests):
-        U = i * step
-        test = rk4_scheme(dh, h0, h1, P0, T0, U, dN)
-        print(U, test[0][-1], test[1][-1], test[2][-1])

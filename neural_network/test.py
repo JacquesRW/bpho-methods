@@ -21,6 +21,7 @@ slider = Slider(
     label='Relative Humidity',
     valmin=0,
     valmax=1,
+    valstep=0.01,
     valinit=U0)
 
 
