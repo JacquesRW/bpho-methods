@@ -2,7 +2,7 @@ import ctypes
 import numpy as np
 
 try:  # just running the file
-    mylib = ctypes.windll.LoadLibrary('/resources/dll/euler_scheme.dll')
+    mylib = ctypes.windll.LoadLibrary('resources/dll/euler_scheme.dll')
     print("Default dll loading used.")
 except FileNotFoundError:  # from workspace root (VSCode Debug)
     mylib = ctypes.windll.LoadLibrary('euler/resources/dll/euler_scheme.dll')
