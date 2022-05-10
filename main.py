@@ -74,7 +74,6 @@ def update(val: float) -> None:
     line1.set_ydata(data[0])
     line2.set_ydata(data[1])
     line3.set_ydata(data[2])
-    fig.canvas.draw_idle()
     duration += tm() - start
     count += 1
 
