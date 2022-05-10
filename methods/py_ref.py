@@ -15,7 +15,7 @@ def _calc_dP(P: float, UEs: float, TK: float) -> float:
     return -34.171 * (P - 0.37776 * UEs) / TK
 
 
-def euler_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, dN: float) -> np.ndarray:
+def euler_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, dN: float) -> np.ndarray[float]:
     n = int((h1 - h0) / dh) + 1
     N = int(dN / dh)
     P = [0] * n
@@ -35,7 +35,7 @@ def euler_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float
     return data
 
 
-def rk4_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, dN: float) -> np.ndarray:
+def rk4_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, dN: float) -> np.ndarray[float]:
     n = int((h1 - h0) / dh) + 1
     N = int(dN / dh)
     P = [0] * n
