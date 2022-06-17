@@ -6,7 +6,6 @@ const double dh = 0.1;
 const double P0 = 1013.25;
 const double T0 = 15;
 const int rk4_n = 111;
-const int euler_n = 1101;
 
 double calc_Es(double T) { return 6.1121 * exp((18.678 - T / 234.5) * (T / (T + 257.14))); }
 
@@ -17,30 +16,6 @@ double calc_L(double P, double UEs, double TK) {
 
 double calc_dP(double P, double UEs, double TK) { return -34.171 * (P - 0.37776 * UEs) / TK; }
 
-std::array<double, euler_n>* euler_scheme(double U) {
-    // heap allocations
-    std::array<double, euler_n>* soln = new std::array<double, euler_n>[3];
-    // stack allocations
-    std::array<double, euler_n> P, T, L;
-    double t, UEs, TK;
-    //initial conditions
-    P[0] = P0;
-    T[0] = T0;
-    L[0] = calc_L(P0, U * calc_Es(15), T0 + 273.15);
-    // solving
-    for (int i = 1; i < euler_n; i++) {
-        t = T[i - 1] - L[i - 1] * 0.01;
-        UEs = U * calc_Es(t);
-        TK = t + 273.15;
-        T[i] = t;
-        P[i] = P[i - 1] + 0.01 * calc_dP(P[i - 1], UEs, TK);
-        L[i] = calc_L(P[i], UEs, TK);
-    }
-    soln[0] = P;
-    soln[1] = T;
-    soln[2] = L;
-    return soln;
-}
 std::array<double, rk4_n>* rk4_scheme(double U) {
     // heap allocations
     std::array<double, rk4_n>* soln = new std::array<double, rk4_n>[3];
