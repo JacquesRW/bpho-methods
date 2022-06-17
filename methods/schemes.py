@@ -25,7 +25,7 @@ def euler_scheme(U: float) -> np.ndarray:
     return data
 
 
-def rk4_scheme(U: float, dN: float) -> np.ndarray:
+def rk4_scheme(U: float) -> np.ndarray:
     soln = mylib.rk4_scheme(U)
     data = np.asarray([soln[0], soln[1], soln[2]])
     return data

@@ -1,21 +1,27 @@
-#include "methods.h"
 #include <iostream>
 #include <cmath>
 #include <array>
 
-double calc_Es(double T) {return 6.1121 * exp((18.678 - T / 234.5) * (T / (T + 257.14)));}
+const double dh = 0.1;
+const double P0 = 1013.25;
+const double T0 = 15;
+const int rk4_n = 111;
+const int euler_n = 1101;
+
+double calc_Es(double T) { return 6.1121 * exp((18.678 - T / 234.5) * (T / (T + 257.14))); }
 
 double calc_L(double P, double UEs, double TK) {
     double r = UEs / (P - UEs);
     return 9.7734 * (TK + 5420.3 * r) / (TK * TK + 8400955.5 * r) * TK;
 }
 
-double calc_dP(double P, double UEs, double TK) {return -34.171 * (P - 0.37776 * UEs) / TK;}
+double calc_dP(double P, double UEs, double TK) { return -34.171 * (P - 0.37776 * UEs) / TK; }
 
-std::array<std::array<double,euler_n>,3> euler_scheme(double U) {
+std::array<double, euler_n>* euler_scheme(double U) {
+    // heap allocations
+    std::array<double, euler_n>* soln = new std::array<double, euler_n>[3];
     // stack allocations
-    std::array<double,euler_n> P,T,L;
-    std::array<std::array<double,euler_n>,3> soln;
+    std::array<double, euler_n> P, T, L;
     double t, UEs, TK;
     //initial conditions
     P[0] = P0;
@@ -27,22 +33,25 @@ std::array<std::array<double,euler_n>,3> euler_scheme(double U) {
         UEs = U * calc_Es(t);
         TK = t + 273.15;
         T[i] = t;
-        P[i] = P[i - 1] + 0.01 * calc_dP(P[i-1],UEs,TK);
-        L[i] = calc_L(P[i],UEs,TK);  
+        P[i] = P[i - 1] + 0.01 * calc_dP(P[i - 1], UEs, TK);
+        L[i] = calc_L(P[i], UEs, TK);
     }
-    soln = {P,T,L};
+    soln[0] = P;
+    soln[1] = T;
+    soln[2] = L;
     return soln;
 }
-std::array<std::array<double,rk4_n>,3> rk4_scheme(double U) {
+std::array<double, rk4_n>* rk4_scheme(double U) {
+    // heap allocations
+    std::array<double, rk4_n>* soln = new std::array<double, rk4_n>[3];
     // stack allocations
-    std::array<double,rk4_n> P,T,L;
-    std::array<std::array<double,rk4_n>,3> soln;
-    double t1,t2,t3,t4; // temperature
-    double p1,p2,p3,p4; // pressure
-    double UEs1,UEs2,UEs3,UEs4; // relative humidity
-    double tk1,tk2,tk3,tk4; // temperature in kelvin
-    double kt1,kt2,kt3,kt4; // temperature component of vector
-    double kp1,kp2,kp3,kp4; // pressure component of vector
+    std::array<double, rk4_n> P, T, L;
+    double t1, t2, t3, t4; // temperature
+    double p1, p2, p3, p4; // pressure
+    double UEs1, UEs2, UEs3, UEs4; // relative humidity
+    double tk1, tk2, tk3, tk4; // temperature in kelvin
+    double kt1, kt2, kt3, kt4; // temperature component of vector
+    double kp1, kp2, kp3, kp4; // pressure component of vector
     // iniital conditions
     P[0] = P0;
     T[0] = T0;
@@ -80,8 +89,20 @@ std::array<std::array<double,rk4_n>,3> rk4_scheme(double U) {
         // weighted final approximation
         T[i] = t1 - (kt1 + 2 * kt2 + 2 * kt3 + kt4) * dh / 6;
         P[i] = p1 + (kp1 + 2 * kp2 + 2 * kp3 + kp4) * dh / 6;
-        L[i] = kt1;  
+        L[i] = kt1;
     }
-    soln = {P,T,L};
+    soln[0] = P;
+    soln[1] = T;
+    soln[2] = L;
     return soln;
+}
+int main () {
+    std::array<double, rk4_n>* soln = rk4_scheme(0.25);
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 111; j+=5) {
+            std::cout << soln[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+    return 0;
 }
