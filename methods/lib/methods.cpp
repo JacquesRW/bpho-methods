@@ -44,7 +44,7 @@ std::array<double, rk4_n>* rk4_scheme(double U) {
         t2 = t1 - dh * kt1 / 2;
         p2 = p1 + dh * kp1 / 2;
         UEs2 = U * calc_Es(t2);
-        tk2 = t1 + 273.15;
+        tk2 = t2 + 273.15;
         kt2 = calc_L(p2, UEs2, tk2);
         kp2 = calc_dP(p2, UEs2, tk2);
         // third approximation
