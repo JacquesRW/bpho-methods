@@ -11,24 +11,23 @@ except AttributeError:  # for use from linux cl
     except FileNotFoundError:
         mylib = ctypes.cdll.LoadLibrary('lib/methods.so')
 
-scheme_arg_types = [ctypes.c_double] * 6
-scheme_return_type = ctypes.POINTER(ctypes.POINTER(ctypes.c_double))
-
+scheme_arg_types = [ctypes.c_double]
 mylib.rk4_scheme.argtypes = mylib.euler_scheme.argtypes = scheme_arg_types
-mylib.rk4_scheme.restype = mylib.euler_scheme.restype = scheme_return_type
+mylib.rk4_scheme.restype = ctypes.POINTER(ctypes.c_double * 111)
+mylib.euler_scheme.restype = ctypes.POINTER(ctypes.c_double * 1101)
 
 
-def euler_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, dN: float) -> np.ndarray:
-    n = int((h1 - h0) / dh) + 1
-    N = int(dN / dh)
-    soln = mylib.euler_scheme(dh, h0, h1, P0, T0, U)
+def euler_scheme(U: float, dN: float) -> np.ndarray:
+    n = 1101
+    N = int(dN / 0.01)
+    soln = mylib.euler_scheme(U)
     data = np.asarray([soln[0][:n:N], soln[1][:n:N], soln[2][:n:N]])
     return data
 
 
-def rk4_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, dN: float) -> np.ndarray:
-    n = int((h1 - h0) / dh) + 1
-    N = int(dN / dh)
-    soln = mylib.rk4_scheme(dh, h0, h1, P0, T0, U)
+def rk4_scheme(U: float, dN: float) -> np.ndarray:
+    n = 111
+    N = int(dN / 0.1)
+    soln = mylib.rk4_scheme(U)
     data = np.asarray([soln[0][:n:N], soln[1][:n:N], soln[2][:n:N]])
     return data

@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include <array>
 // compilation to .dll on windows is weird 
 // linux works fine of course
 #if defined(_MSC_VER)
@@ -10,5 +10,11 @@
     #define IMPORT
 #endif
 
-extern "C" IMPORT std::vector<std::vector<double>> euler_scheme(double dh, double h, double P0, double T0, double U);
-extern "C" IMPORT std::vector<std::vector<double>> rk4_scheme(double dh, double h, double P0, double T0, double U);
+const double dh = 0.1;
+const double P0 = 1013.25;
+const double T0 = 15;
+const int rk4_n = 111;
+const int euler_n = 1101;
+
+extern "C" IMPORT std::array<std::array<double,euler_n>,3> euler_scheme(double U);
+extern "C" IMPORT std::array<std::array<double,rk4_n>,3> rk4_scheme(double U);

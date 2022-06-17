@@ -37,7 +37,7 @@ N = int((h1 - h0) / dN) + 1
 H = np.arange(N) * dN
 
 fig, axs = plt.subplots(ncols=3, nrows=1, figsize=(12, 6))
-init_data = method(dh, h0, h1, P0, T0, U0, dN)
+init_data = method(U0, dN)
 line1, = axs[0].plot(H, init_data[0], lw=2)
 line2, = axs[1].plot(H, init_data[1], lw=2)
 line3, = axs[2].plot(H, init_data[2], lw=2)
@@ -70,7 +70,7 @@ slider = Slider(
 def update(val: float) -> None:
     global count, duration
     start = tm()
-    data = method(dh, h0, h1, P0, T0, val, dN)
+    data = method(val, dN)
     line1.set_ydata(data[0])
     line2.set_ydata(data[1])
     line3.set_ydata(data[2])
