@@ -18,9 +18,7 @@ std::vector<std::vector<double>> euler_scheme(double dh, double h, double P0, do
     double t, UEs, TK;
     P[0] = P0;
     T[0] = T0;
-    double UEs0 = U * calc_Es(T0);
-    double TK0 = T0 + 273.15;
-    L[0] = calc_L(P0, UEs0, TK0);
+    L[0] = calc_L(P0, U * calc_Es(T0), T0 + 273.15);
     for (int i = 1; i < n; i++) {
         t = T[i - 1] - L[i - 1] * dh;
         UEs = U * calc_Es(t);
@@ -49,9 +47,7 @@ std::vector<std::vector<double>> rk4_scheme(double dh, double h, double P0, doub
     // iniital conditions
     P[0] = P0;
     T[0] = T0;
-    double UEs0 = U * calc_Es(T0);
-    double TK0 = T0 + 273.15;
-    L[0] = calc_L(P0, UEs0, TK0);
+    L[0] = calc_L(P0, U * calc_Es(T0), T0 + 273.15);
 
     // height steps
     for (int i = 1; i < n; i++) {
