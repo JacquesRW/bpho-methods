@@ -17,17 +17,15 @@ mylib.rk4_scheme.restype = ctypes.POINTER(ctypes.c_double * 111)
 mylib.euler_scheme.restype = ctypes.POINTER(ctypes.c_double * 1101)
 
 
-def euler_scheme(U: float, dN: float) -> np.ndarray:
+def euler_scheme(U: float) -> np.ndarray:
     n = 1101
-    N = int(dN / 0.01)
+    N = 10
     soln = mylib.euler_scheme(U)
     data = np.asarray([soln[0][:n:N], soln[1][:n:N], soln[2][:n:N]])
     return data
 
 
 def rk4_scheme(U: float, dN: float) -> np.ndarray:
-    n = 111
-    N = int(dN / 0.1)
     soln = mylib.rk4_scheme(U)
-    data = np.asarray([soln[0][:n:N], soln[1][:n:N], soln[2][:n:N]])
+    data = np.asarray([soln[0], soln[1], soln[2]])
     return data
