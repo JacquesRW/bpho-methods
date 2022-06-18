@@ -1,10 +1,12 @@
 import math
 import numpy as np
+import typing
 
 dh = 0.1
 n = int(11 / dh + 1)
 P0 = 1013.25
 T0 = 15
+return_type = []
 
 
 def _calc_Es(T: float) -> float:
@@ -20,7 +22,7 @@ def _calc_dP(P: float, UEs: float, TK: float) -> float:
     return -34.171 * (P - 0.37776 * UEs) / TK
 
 
-def py_euler_scheme(U: float) -> np.ndarray:
+def py_euler_scheme(U: float) -> np.ndarray[typing.Any, np.dtype[np.float64]]:
     P = [0] * n
     T = [0] * n
     L = [0] * n
@@ -38,7 +40,7 @@ def py_euler_scheme(U: float) -> np.ndarray:
     return data
 
 
-def py_rk4_scheme(U: float) -> np.ndarray:
+def py_rk4_scheme(U: float) -> np.ndarray[typing.Any, np.dtype[np.float64]]:
     P = [0] * n
     T = [0] * n
     L = [0] * n

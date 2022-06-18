@@ -1,8 +1,9 @@
 from methods import *
+from typing import Callable
 from time import perf_counter as tm
 
 
-def speed_test(method, tests: int) -> float:
+def speed_test(method: Callable, tests: int) -> float:
     '''
     Returns average execution time of 'method' in microseconds.
     '''
@@ -14,15 +15,14 @@ def speed_test(method, tests: int) -> float:
     return avg_time
 
 
-def test_all(methods: list, tests: int):
+def test_all(methods: list[Callable], tests: int):
     '''
     Creates dictionary of all methods and their average execution time in microseconds.
     Mostly defunct now as only the 2 rk4 methods are worth using.
     '''
     avg_times = {}
     for method in methods:
-        avg_time = speed_test(method, tests)
-        avg_times[method.__name__] = avg_time
+        avg_times[method.__name__] = speed_test(method, tests)
     return avg_times
 
 
