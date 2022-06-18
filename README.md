@@ -8,7 +8,7 @@ This solves the following set of ODEs in a variety of ways:
 $$
 \begin{align}
 \frac{dT}{dh} & = -L(P,T) \\
-\frac{dP}{dh} & = -\frac{M_d g}{R T_K} \left ( P - U \left ( 1-\frac{M_V}{M_d} \right ) E_S(T) \right ) 
+\frac{dP}{dh} & = -\frac{34.171}{ T_K} \left ( P - 0.37776 U E_S(T) \right ) 
 \end{align} 
 $$
 
@@ -16,7 +16,7 @@ Given
 
 $$
 \begin{align}
- L(P,T) & = g \frac{1+\frac{\Delta H_s \frac{M_V}{M_d}  r(P,T)}{R_s T_K}}{c_{pd}+\frac{\Delta H_s^2 \frac{M_V}{M_d}  r(P,T)}{R_{sw} T_K^2}} \\
+ L(P,T) & = 9.7734 \frac{1 + 5420.3 \frac{r}{T_K}}{1 + 8400955.5 \frac{r}{ T_K^2}} \\
 r(P,T) & = \frac{UE_S(T)}{P-UE_S(T)} \\
 E_S(T) & = 6.1121e^{ \left (18.678 - \frac{T}{234.5} \right ) \left (\frac{T}{T+257.14} \right ) }
 \end{align}
