@@ -14,7 +14,7 @@ set h=0.01 for euler and 0.1 for rk4
 '''
 
 methods = [cpp_euler_scheme, py_euler_scheme, cpp_rk4_scheme, py_rk4_scheme]
-method = methods[2]
+method = methods[3]
 dh = 0.1
 
 '''

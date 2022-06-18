@@ -1,6 +1,11 @@
 import math
 import numpy as np
 
+dh = 0.1
+n = int(11 / dh + 1)
+P0 = 1013.25
+T0 = 15
+
 
 def _calc_Es(T: float) -> float:
     return 6.1121 * math.exp((18.678 - T / 234.5) * (T / (T + 257.14)))
@@ -15,9 +20,7 @@ def _calc_dP(P: float, UEs: float, TK: float) -> float:
     return -34.171 * (P - 0.37776 * UEs) / TK
 
 
-def euler_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, dN: float) -> np.ndarray:
-    n = int((h1 - h0) / dh) + 1
-    N = int(dN / dh)
+def py_euler_scheme(U: float) -> np.ndarray:
     P = [0] * n
     T = [0] * n
     L = [0] * n
@@ -31,13 +34,11 @@ def euler_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float
         T[i] = t
         P[i] = P[i - 1] + dh * _calc_dP(P[i - 1], UEs, TK)
         L[i] = _calc_L(P[i], UEs, TK)
-    data = np.asarray([P[:n:N], T[:n:N], L[:n:N]])
+    data = np.asarray([P, T, L])
     return data
 
 
-def rk4_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, dN: float) -> np.ndarray:
-    n = int((h1 - h0) / dh) + 1
-    N = int(dN / dh)
+def py_rk4_scheme(U: float) -> np.ndarray:
     P = [0] * n
     T = [0] * n
     L = [0] * n
@@ -56,7 +57,7 @@ def rk4_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, 
         t2 = t1 - dh * k1 / 2
         p2 = p1 + dh * K1 / 2
         UEs2 = U * _calc_Es(t2)
-        tk2 = t1 + 273.15
+        tk2 = t2 + 273.15
         k2 = _calc_L(p2, UEs2, tk2)
         K2 = _calc_dP(p2, UEs2, tk2)
 
@@ -79,5 +80,5 @@ def rk4_scheme(dh: float, h0: float, h1: float, P0: float, T0: float, U: float, 
         P[i] = p1 + (K1 + 2 * K2 + 2 * K3 + K4) * dh / 6
         L[i] = k1
 
-    data = np.asarray([P[:n:N], T[:n:N], L[:n:N]])
+    data = np.asarray([P, T, L])
     return data
