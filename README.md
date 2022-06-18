@@ -23,10 +23,11 @@ E_S(T) & = 6.1121e^{ \left (18.678 - \frac{T}{234.5} \right ) \left (\frac{T}{T+
 $$
 
 where $T_K = T  + 273.15$ - i.e the Kelvin conversion - and for some parameter $U \in [0,1]$, given the initial conditions $h_0 = 0$ km, $P_0=1013.25$ mbar and $T_0 = 15^\circ$ C, with step size $\Delta h=0.01$, up to $h_1 = 11$ km.
+
 ### Contains:
+- C++ and python implementations uf euler's method and runge-kutta's 4th order method (rk4)
 - euler's method: recommended (read: mandated) by BPhO
-- neural network: gives 'wobbly' results, needs further work (if worth it) and c++ implementation (maybe fortran instead for matmul)
-- rk4 method: approx 40% faster than euler
+- rk4 method: approx 40% faster than euler' method
 
 ### Other:
 - 'py_ref.py' contains roughly equivalent python code to the c++ code used for euler and rk4
