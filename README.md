@@ -7,7 +7,7 @@ This solves the following set of ODEs in a variety of ways:
 
 $$
 \begin{align}
-\frac{dT}{dh} & = -L(P,T_K) \\
+\frac{dT}{dh} & = -L(r,T_K) \\
 \frac{dP}{dh} & = -\frac{34.171}{ T_K} \left ( P - 0.37776 U E_S(T) \right ) 
 \end{align} 
 $$
